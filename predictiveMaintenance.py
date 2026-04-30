@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 from xgboost import XGBClassifier
 from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import GridSearchCV
 
 pd.set_option("display.max_columns", None)
 
@@ -63,7 +64,7 @@ print("\nSMOTE SONRASI\n")
 print("Arıza: ", sum(y_train_smote == 1))
 print("\nSağlam: ", sum(y_train_smote == 0))
 
-model = XGBClassifier(random_state=42)
+"""model = XGBClassifier(random_state=42)
 model.fit(x_train_smote, y_train_smote)
 
 y_pred = model.predict(x_test)
@@ -71,9 +72,36 @@ y_pred = model.predict(x_test)
 print("\nKarmaşıklık Matrisi\n")
 print(confusion_matrix(y_test, y_pred))
 print("\nSınıflandırma Raporu\n")
+print(classification_report(y_test, y_pred))"""
+
+parameter_grid = {
+    "max_depth": [2, 3, 4],
+    "learning_rate":[0.1],
+    "n_estimators": [120],
+    "min_child_weight": [1, 3],
+    "gamma": [0, 0.1],
+    "subsample": [0.8]
+}
+
+base_model = XGBClassifier(random_state = 42)
+grid_search = GridSearchCV(estimator = base_model,
+                           param_grid = parameter_grid, 
+                           cv = 3, #çapraz doğrulama
+                           verbose = 2, #raporla
+                           n_jobs = -1 #tüm çekirdekleri kullan
+)
+
+grid_search.fit(x_train_smote, y_train_smote)
+print("\nBulunan en iyi ayar: ", grid_search.best_params_)
+
+best_model = grid_search.best_estimator_
+y_pred = best_model.predict(x_test)
+
+print("\nKarmaşıklık Matrisi\n")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nSınıflandırma Raporu\n")
 print(classification_report(y_test, y_pred))
-
-
 
 
 
