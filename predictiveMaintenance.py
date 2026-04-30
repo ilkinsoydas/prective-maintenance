@@ -7,6 +7,8 @@ from sklearn.metrics import confusion_matrix, classification_report
 from xgboost import XGBClassifier
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
+import matplotlib.pyplot as plt
+import seaborn as sns #matplotlib tabanli daha modern
 
 pd.set_option("display.max_columns", None)
 
@@ -114,7 +116,19 @@ print(confusion_matrix(y_test, y_pred_parano))
 print(f"\nYeni eşik ({new_threshold_value} ile Sınıflandırma Raporu\n)")
 print(classification_report(y_test, y_pred_parano))
 
+priorities = best_model.feature_importances_
+column_names = x_test.columns
 
+priorities_table = pd.DataFrame({"Özellik": column_names, "Önem": priorities})
+priorities_table = priorities_table.sort_values(by = "Önem", ascending=False)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x = "Önem", y = "Özellik", data = priorities_table, palette="viridis")
+plt.title("Özellik Önem Düzeyleri")
+plt.xlabel("Önem Skoru")
+plt.ylabel("Özellikler")
+plt.tight_layout()
+plt.show()
 
 
 
