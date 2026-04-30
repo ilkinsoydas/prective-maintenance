@@ -103,6 +103,18 @@ print(confusion_matrix(y_test, y_pred))
 print("\nSınıflandırma Raporu\n")
 print(classification_report(y_test, y_pred))
 
+y_pred_possibilities = best_model.predict_proba(x_test)[:, 1] #ilk örn olasılıkları, proba ihtimalleri söyler
+
+new_threshold_value = 0.30
+y_pred_parano = (y_pred_possibilities >= new_threshold_value).astype(int)
+
+print(f"\nYeni eşik ({new_threshold_value} ile Karmaşıklık Matrisi\n)")
+print(confusion_matrix(y_test, y_pred_parano))
+
+print(f"\nYeni eşik ({new_threshold_value} ile Sınıflandırma Raporu\n)")
+print(classification_report(y_test, y_pred_parano))
+
+
 
 
 
