@@ -9,6 +9,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
 import matplotlib.pyplot as plt
 import seaborn as sns #matplotlib tabanli daha modern
+import joblib
 
 pd.set_option("display.max_columns", None)
 
@@ -129,6 +130,8 @@ plt.xlabel("Önem Skoru")
 plt.ylabel("Özellikler")
 plt.tight_layout()
 plt.show()
+
+joblib.dump(best_model, "predictive_model.pkl")
 
 
 
