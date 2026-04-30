@@ -1,6 +1,6 @@
 # 🏭 Industrial Predictive Maintenance: An End-to-End ML Pipeline
 
-Bu proje, endüstriyel tesislerdeki beklenmedik arıza duruşlarını (downtime) minimize etmek ve bakım maliyetlerini optimize etmek amacıyla geliştirilmiş, uçtan uca bir makine öğrenmesi çözümüdür. Trakya Üniversitesi Bilgisayar Mühendisliği kapsamında yürütülen bu çalışma, özellikle dengesiz veri setlerinde model performansının ve yorumlanabilirliğinin artırılmasına odaklanmaktadır.
+Bu proje, endüstriyel tesislerdeki beklenmedik arıza duruşlarını (downtime) minimize etmek ve bakım maliyetlerini optimize etmek amacıyla geliştirilmiş, uçtan uca bir makine öğrenmesi çözümüdür. 
 
 ## 🛠 Metodoloji ve Teknik Uygulama
 
